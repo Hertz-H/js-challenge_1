@@ -1,0 +1,21 @@
+.dark{
+        background-color:black;
+        color:white;
+}
+.form_container{
+    padding:20px;
+    border-radius:10px;
+    line-height: 1.8;
+    text-align: left;
+
+
+
+}
+input,textarea{
+    display: block;
+}
+.input_status{
+    visibility:hidden;
+    display: block;
+     font-size: 9px;
+ }

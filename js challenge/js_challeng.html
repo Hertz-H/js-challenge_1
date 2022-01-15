@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head >
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" id="main_css">
+</head>
+<body class="body_section">
+    <button id="btn"> change mode </button>
+    <div class="form_container">
+        <form >
+           
+                
+                <label>Your Name</label><input id="name" type="text" value="" name="sender_name" id=""> <span class="input_status" id="">input_status</span>
+                <label>Phone Number</label><input type="tel"class="full_width" name="phone_number" id="phone"><span class="input_status" id="">input_status</span>
+                <label >age</label> <input  id="age" type="text" value="" name="age" ><span class="input_status" id="age_status">input_status</span>
+                <label >password</label> <input  id="pass" type="text" value="" name="pass" ><span class="input_status" id="pass_status">input_status</span>
+                <label >confirm password</label> <input  id="pass_confirm" type="text" value="" name="pass" ><span class="input_status" id="confirmedpass_status">input_status</span>
+                <label >Email</label> <input id="email" type="text"  value="" name="email" id=""><span class="input_status" id="">input_status</span>
+                <label >url</label> <input  id="url" type="text"value="" name="" id=""><span class="input_status" id="">input_status</span>
+                <label >Your message</label><textarea  name="" value="" id="message" cols="20" rows="6"></textarea><br><span class="input_status" id="">input_status</span>
+                <button id="submit" type="submit">send Message</button>
+             </form>
+   </div>
+   <script>
+    var body=document.querySelector(".body_section");
+    var btn=document.getElementById("btn");
+    console.log(btn);
+    console.log(body);
+    btn.onclick=function(){
+    body.classList.toggle("dark");
+
+    }
+
+    var submit=document.getElementById("submit"); 
+    var name1=document.getElementById("name"); 
+    var Email1=document.getElementById("email");
+    var message1=document.getElementById("message"); 
+    var url1=document.getElementById("url"); 
+    var age=document.getElementById("age"); 
+    var pass=document.getElementById("pass"); 
+    var phone=document.getElementById("phone");
+    var status_spans=document.querySelectorAll(".input_status");
+    var pass_confirm=document.getElementById("pass_confirm");
+    btn.onclick=function(){
+    body.classList.toggle("dark");
+    
+    }
+    function name_validate(elementValue){      
+   var nPattern = /^[a-zA-Z]{4,9}$/;
+   return nPattern.test(elementValue); 
+ }
+ var name=name_validate(name1.value);
+ console.log(" name 1 "+name);
+ name1.addEventListener('blur',()=>{
+var name_test=name_validate(name1.value);
+status_spans[0].style.visibility="visible";
+if( name_test==false){
+    status_spans[0].style.color="red";
+    status_spans[0].innerHTML="*name contains only letters and from 4 to 9 leters";
+}
+else{
+    status_spans[0].style.color="green";
+      status_spans[0].innerHTML="*correct input ";
+}
+
+});
+function validatePhone(elementValue){ 
+      var phonePattern=/^[0-9]+$/;
+    var isNum=phonePattern.test(elementValue); 
+    if(isNum){
+        if(elementValue.length==9){
+            var first_part=elementValue.slice(0,3);
+            console.log(first_part);
+            console.log(elementValue);
+           
+                return  first_part=="777";
+            }
+        }
+        
+        return false;
+    }
+phone.addEventListener('blur',()=>{
+var phone_test=validatePhone(phone.value);
+status_spans[1].style.visibility="visible";
+if( phone_test==false){
+    status_spans[1].style.color="red";
+    status_spans[1].innerHTML="*phone num starts with 777 and contain only 9 numbers";
+}
+else{
+    status_spans[1].style.color="green";
+      status_spans[1].innerHTML="*correct input ";
+}
+
+});
+
+    age.addEventListener('blur',()=>{
+      
+        status_spans[2].style.visibility="visible";
+    if(age.value<19||age.value==""||/^[0-9]+$/.test(age.value)==false){
+      
+        status_spans[2].style.color="red";
+        status_spans[2].innerHTML="*enter nameric value and ensure the value is  larger than 18";
+    }
+    else{
+        status_spans[2].style.color="green";
+        status_spans[2].innerHTML="*correct input ";
+    }
+
+    });
+ 
+    function validatePass(elementValue){   
+        var numeric_value=/[0-9]/;
+        var passPattern_captial = /[A-Z]/;
+        var special_char=/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+        var passPattern_small = /[a-z]/;
+     return numeric_value.test(elementValue)
+         &&passPattern_captial.test(elementValue)
+         &&passPattern_small.test(elementValue)
+         &&special_char.test(elementValue); 
+ }
+pass.addEventListener('blur',()=>{
+var pass_test=validatePass(pass.value);
+ console.log( pass.value+" pass_test "+pass_test);
+ status_spans[3].style.visibility="visible";
+if( pass_test==false){
+    console.log(pass_status);
+  
+    status_spans[3].style.color="red";
+    status_spans[3].innerHTML="*password must include captial,small ,numeric and special characters"
+
+}
+else{
+    
+    status_spans[3].style.color="green";
+    status_spans[3].innerHTML="*strong password ";
+}
+
+}); 
+
+pass_confirm.addEventListener('blur',()=>{
+ status_spans[4].style.visibility="visible";
+
+if( validatePass(pass.value)==true &&pass_confirm==pass.value){
+    
+   
+    status_spans[4].style.color="green";
+    status_spans[4].innerHTML="*confirmed password ";
+
+}
+else{
+    status_spans[4].style.color="red";
+    status_spans[4].innerHTML="* must much the password ";
+ 
+}
+
+}); 
+ 
+
+
+ 
+
+function validateEmail(elementValue){      
+   var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+   return emailPattern.test(elementValue); 
+ }
+ var result=validateEmail(Email1.value);
+console.log("email11"+Email1.value+result);
+
+Email1.addEventListener('blur',()=>{
+var Email_test=validateEmail(Email1.value);
+status_spans[5].style.visibility="visible";
+if( Email_test==false){
+    status_spans[5].style.color="red";
+    status_spans[5].innerHTML="*name contains only letters and from 4 to 9 leters";
+}
+else{
+    status_spans[5].style.color="green";
+      status_spans[5].innerHTML="*correct input ";
+}
+
+});
+
+ 
+
+ function url_validate(elementValue){      
+   var url = /^['http://']+[a-zA-Z]+\.[a-zA-Z]+\.[a-zA-Z]{2,4}$/;
+   return url.test(elementValue); 
+ }
+var url=url_validate(url1.value);
+console.log("url"+url);
+
+url1.addEventListener('blur',()=>{
+
+var url_test=url_validate(url1.value);
+status_spans[6].style.visibility="visible";
+if( url_test==false){
+    status_spans[6].style.color="red";
+    status_spans[6].innerHTML="*url example  http://www.google.com follow this guidline";
+}
+else{
+    status_spans[6].style.color="green";
+      status_spans[6].innerHTML="*correct input ";
+}
+
+});
+
+function message_validate(elementValue){      
+var message = /^[a-zA-Z0-9 `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]{21,}/;
+   return message.test(elementValue); 
+ }
+message1.addEventListener('blur',()=>{
+ message_test=message_validate(message1.value);
+ status_spans[7].style.visibility="visible";
+if( message_test==false){
+  
+    status_spans[7].style.color="red";
+      status_spans[7].innerHTML="*enter more than 20 letters and  ensure the value contains only letters";
+
+}
+else{
+    status_spans[7].style.color="green";
+      status_spans[7].innerHTML="*correct input ";
+}
+
+});
+
+
+
+
+</script>
+</body>
+
+
+</html>
