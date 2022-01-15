@@ -116,10 +116,12 @@ else{
         var passPattern_captial = /[A-Z]/;
         var special_char=/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
         var passPattern_small = /[a-z]/;
+        if(pass.value.length>5){
      return numeric_value.test(elementValue)
          &&passPattern_captial.test(elementValue)
          &&passPattern_small.test(elementValue)
-         &&special_char.test(elementValue); 
+         &&special_char.test(elementValue); }
+         return false; 
  }
 pass.addEventListener('blur',()=>{
 var pass_test=validatePass(pass.value);
